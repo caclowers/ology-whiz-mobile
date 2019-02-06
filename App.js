@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TouchableHighlight, TouchableNativeFeedback, Platform, StatusBar, ScrollView, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TouchableNativeFeedback, Platform, StatusBar, ScrollView, Image, ImageBackground } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Button from './src/components/Button.js';
 
@@ -19,44 +19,8 @@ import Etymology from './src/components/Etymology.js';
 import Mythology from './src/components/Mythology.js';
 import Technology from './src/components/Technology.js';
 
-
-
 const whizzes = Whizzes;
 
-let content;
-// if (Platform.OS === 'ios') {
-//   return (
-//     content = (
-//       <TouchableOpacity
-//         key={index}
-//         style={styles.div}
-//         onPress={this.onButtonPress}
-//       >
-//         <Image
-//           alt={whiz.name}
-//           source={whiz.image}
-//           style={styles.image}
-//         />
-//         <Text style={styles.text}>{whiz.name}</Text>
-//       </TouchableOpacity>
-//     )
-//   )
-// } else {
-//   return (
-//     <TouchableNativeFeedback
-//           key={index}
-//           style={styles.div}
-//           onPress={this.onButtonPress}
-//         >
-//           <Image
-//             alt={whiz.name}
-//             source={whiz.image}
-//             style={styles.image}
-//           />
-//           <Text style={styles.text}>{whiz.name}</Text>
-//         </TouchableNativeFeedback>
-//   )
-// }
 
 class App extends React.Component {
 
@@ -64,54 +28,59 @@ class App extends React.Component {
     title: '[-olo(gy] whiz)',
     headerStyle: { backgroundColor: 'lavender' },
     headerTitleStyle: { color: 'rgb(119, 96, 141)', fontSize: 36 },
-
   }
 
   onButtonPress = (whiz) => {
-    this.props.navigation.navigate(whiz.path);
+    this.props.navigation.navigate('');
   }
 
   render() {
 
     let whizArray = whizzes.map((whiz, index) => {
+
       if (Platform.OS === 'ios') {
+
         return (
-          content = (
-            <TouchableOpacity
-              key={index}
-              style={styles.div}
-              onPress={this.onButtonPress}
-            >
-              <Image
-                alt={whiz.name}
-                source={whiz.image}
-                style={styles.image}
-              />
-              <Text style={styles.text}>{whiz.name}</Text>
-            </TouchableOpacity>
-          )
-        )
-      } else {
-        return (
-          <TouchableNativeFeedback
-                key={index}
-                style={styles.div}
-                onPress={this.onButtonPress}
-              >
-                <Image
-                  alt={whiz.name}
-                  source={whiz.image}
-                  style={styles.image}
-                />
-                <Text style={styles.text}>{whiz.name}</Text>
-              </TouchableNativeFeedback>
+          <TouchableOpacity
+            key={index}
+            style={styles.div}
+            onPress={this.onButtonPress}
+            activeOpacity={0.75}
+          >
+            <Image
+              alt={whiz.name}
+              source={whiz.image}
+              style={styles.image}
+            />
+            <Text style={styles.text}>{whiz.name}</Text>
+          </TouchableOpacity>
         )
       }
+      return (
+        <TouchableNativeFeedback
+          key={index}
+          
+          onPress={this.onButtonPress}
+        >
+          <View
+          style={styles.div}
+          >
+            <Image
+              alt={whiz.name}
+              source={whiz.image}
+              style={styles.image}
+            />
+            <Text style={styles.text}>{whiz.name}</Text>
+          </View>
+
+        </TouchableNativeFeedback>
+      )
     });
 
     return (
       <ScrollView contentContainerStyle={styles.contentContainer}>
         {whizArray}
+        <View style={{ height: 64 }}></View>
       </ScrollView>
     );
   };
@@ -125,20 +94,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 48,
+    fontSize: 32,
     fontWeight: 'bold',
     color: 'rgb(119, 96, 141)',
   },
   text: {
     textAlign: 'center',
     color: 'white',
-    fontWeight: 'normal',
-    fontSize: 18
+    fontWeight: '900',
+    fontSize: 16
   },
   image: {
-    height: 72,
-    width: 144,
-    marginRight: 24,
+    height: 84,
+    width: '40%',
+    marginRight: 20,
     borderRadius: 8,
     overflow: 'hidden'
   },
@@ -150,10 +119,10 @@ const styles = StyleSheet.create({
     borderColor: 'rgb(119, 96, 141)',
     borderRadius: 8,
     borderWidth: 2,
-    marginBottom: 12,
+    marginTop: 16,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    width: '85%'
+    width: '90%'
   }
 });
 
