@@ -6,8 +6,26 @@ class Etymology extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { text: 'Useless Placeholder' };
-  }
+    this.state = { text: 'enter text here' };
+
+    function onButtonPress() {
+      try {
+        let response = fetch('https://od-api.oxforddictionaries.com/api/v1/entries/en/{searchword}/etymologies;examples', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            app_id: '35ed8202',
+            app_key: '7fd753df9e0a5289784626d93c66314d'
+          }
+        });
+        console.log('BODY', response);
+        return response;
+      } catch (error) {
+        console.error(error);
+      };
+    } //end of function onButtonPress
+  }; //end of constructor
+  //end of Class
 
   static navigationOptions = {
     title: 'Etymology Whiz',
@@ -29,7 +47,8 @@ class Etymology extends Component {
             value={this.state.text} />
         </View>
         <Button
-          title="search"></Button>
+          title="search"
+          onPress={this.onButtonPress}></Button>
       </ScrollView>
     );
   };

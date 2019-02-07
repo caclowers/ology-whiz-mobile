@@ -21,7 +21,7 @@ import Cryptology from '../components/Cryptology.js';
 import Egyptology from '../components/Egyptology.js';
 import Parapsychology from '../components/Parapsychology.js';
 import Etymology from '../components/Etymology.js';
-import Mythology from'../components/Mythology.js';
+import Mythology from '../components/Mythology.js';
 import Technology from '../components/Technology.js';
 
 const whizzes = [
@@ -70,7 +70,7 @@ const whizzes = [
     image: mytho,
     component: Mythology,
     path: 'mythology'
-  },{
+  }, {
     name: 'Parapsychology Whiz',
     image: parapsycho,
     component: Parapsychology,

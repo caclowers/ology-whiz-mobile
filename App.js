@@ -21,7 +21,6 @@ import Technology from './src/components/Technology.js';
 
 const whizzes = Whizzes;
 
-
 class App extends React.Component {
 
   static navigationOptions = {
@@ -32,16 +31,12 @@ class App extends React.Component {
 
   onButtonPress = (whiz, e) => {
     this.props.navigation.navigate(whiz.path);
-
-
   }
 
   render() {
 
     let whizArray = whizzes.map((whiz, index) => {
-
       if (Platform.OS === 'ios') {
-
         return (
           <TouchableOpacity
             key={index}
