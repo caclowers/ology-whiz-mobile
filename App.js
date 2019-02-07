@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TouchableNativeFeedback, Platform, StatusBar, ScrollView, Image, ImageBackground } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, TouchableNativeFeedback, Platform, StatusBar, ScrollView, Image, ImageBackground } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Button from './src/components/Button.js';
 
@@ -30,8 +30,10 @@ class App extends React.Component {
     headerTitleStyle: { color: 'rgb(119, 96, 141)', fontSize: 36 },
   }
 
-  onButtonPress = (whiz) => {
-    this.props.navigation.navigate('');
+  onButtonPress = (whiz, e) => {
+    this.props.navigation.navigate(whiz.path);
+
+
   }
 
   render() {
@@ -44,7 +46,7 @@ class App extends React.Component {
           <TouchableOpacity
             key={index}
             style={styles.div}
-            onPress={this.onButtonPress}
+            onPress={this.onButtonPress.bind(this, whiz)}
             activeOpacity={0.75}
           >
             <Image
@@ -59,11 +61,10 @@ class App extends React.Component {
       return (
         <TouchableNativeFeedback
           key={index}
-          
-          onPress={this.onButtonPress}
+          onPress={this.onButtonPress.bind(this, whiz)}
         >
           <View
-          style={styles.div}
+            style={styles.div}
           >
             <Image
               alt={whiz.name}
