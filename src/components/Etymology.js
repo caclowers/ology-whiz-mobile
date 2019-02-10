@@ -1,31 +1,35 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, ScrollView, Image, ImageBackground } from 'react-native';
 import Button from './Button.js';
+import axios from 'axios';
 
 class Etymology extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { text: 'enter text here' };
-
-    function onButtonPress() {
-      try {
-        let response = fetch('https://od-api.oxforddictionaries.com/api/v1/entries/en/{searchword}/etymologies;examples', {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            app_id: '35ed8202',
-            app_key: '7fd753df9e0a5289784626d93c66314d'
-          }
-        });
-        console.log('BODY', response);
-        return response;
-      } catch (error) {
-        console.error(error);
-      };
-    } //end of function onButtonPress
+    this.state = { text: 'enter text here', answer: '' };
   }; //end of constructor
-  //end of Class
+
+  async onButtonPress() {
+    
+    const response = await  axios('https://od-api.oxforddictionaries.com/api/v1/entries/en/hello/etymologies', {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          app_id: '35ed8202',
+          app_key: '7fd753df9e0a5289784626d93c66314d'
+        }
+        }).then((response) => {
+          let answer = response.data.results[0].lexicalEntries[0].entries[0].etymologies[0];
+          console.log( response.data.results[0].lexicalEntries[0].entries[0].etymologies[0]);
+          this.setState ({
+            answer: response.data.results[0].lexicalEntries[0].entries[0].etymologies[0]
+          })
+          return response.data.results[0].lexicalEntries[0].entries[0].etymologies[0];
+        }).catch ((error) => {
+      console.error(error);
+    });
+  };//end of function onButtonPress
 
   static navigationOptions = {
     title: 'Etymology Whiz',
@@ -49,6 +53,7 @@ class Etymology extends Component {
         <Button
           title="search"
           onPress={this.onButtonPress}></Button>
+          <Text value={this.state.answer}></Text>
       </ScrollView>
     );
   };
