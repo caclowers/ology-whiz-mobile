@@ -12,22 +12,22 @@ class Etymology extends Component {
   }; //end of constructor
 
   async onButtonPress() {
-    
-    const response = await  axios('https://od-api.oxforddictionaries.com/api/v1/entries/en/hello/etymologies', {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          app_id: '35ed8202',
-          app_key: '7fd753df9e0a5289784626d93c66314d'
-        }
-        }).then((response) => {
-          let answer = response.data.results[0].lexicalEntries[0].entries[0].etymologies[0];
-          console.log( response.data.results[0].lexicalEntries[0].entries[0].etymologies[0]);
-          this.setState ({
-            answer: response.data.results[0].lexicalEntries[0].entries[0].etymologies[0]
-          })
-          return response.data.results[0].lexicalEntries[0].entries[0].etymologies[0];
-        }).catch ((error) => {
+
+    const response = await axios(`https://od-api.oxforddictionaries.com/api/v1/entries/en/${this.state.text}/etymologies`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        app_id: '35ed8202',
+        app_key: '7fd753df9e0a5289784626d93c66314d'
+      }
+    }).then((response) => {
+      let answer = response.data.results[0].lexicalEntries[0].entries[0].etymologies[0];
+      console.log(response.data.results[0].lexicalEntries[0].entries[0].etymologies[0]);
+      this.setState({
+        answer: response.data.results[0].lexicalEntries[0].entries[0].etymologies[0]
+      })
+      return response.data.results[0].lexicalEntries[0].entries[0].etymologies[0];
+    }).catch((error) => {
       console.error(error);
     });
   };//end of function onButtonPress
@@ -54,7 +54,11 @@ class Etymology extends Component {
         <Button
           title="search"
           onPress={this.onButtonPress}></Button>
-          <Text >{this.state.answer}</Text>
+        <View style={styles.div}>
+          <Text style={styles.text}>
+            {this.state.answer}
+          </Text>
+        </View>
       </ScrollView>
     );
   };
