@@ -8,6 +8,7 @@ class Etymology extends Component {
   constructor(props) {
     super(props);
     this.state = { text: 'enter text here', answer: '' };
+    this.onButtonPress = this.onButtonPress.bind(this);
   }; //end of constructor
 
   async onButtonPress() {
@@ -53,7 +54,7 @@ class Etymology extends Component {
         <Button
           title="search"
           onPress={this.onButtonPress}></Button>
-          <Text value={this.state.answer}></Text>
+          <Text >{this.state.answer}</Text>
       </ScrollView>
     );
   };
