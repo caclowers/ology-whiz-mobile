@@ -7,12 +7,20 @@ class Etymology extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { text: 'enter text here', answer: '' };
+    this.state = { 
+      text: 'enter text here', 
+      answer: ''
+    };
     this.onButtonPress = this.onButtonPress.bind(this);
   }; //end of constructor
 
-  async onButtonPress() {
+  static navigationOptions = {
+    title: 'Etymology Whiz',
+    headerStyle: { backgroundColor: 'lavender' },
+    headerTitleStyle: { color: 'rgb(119, 96, 141)', fontSize: 24 },
+  };
 
+  async onButtonPress() {
     const response = await axios(`https://od-api.oxforddictionaries.com/api/v1/entries/en/${this.state.text}/etymologies`, {
       method: 'GET',
       headers: {
@@ -22,21 +30,18 @@ class Etymology extends Component {
       }
     }).then((response) => {
       let answer = response.data.results[0].lexicalEntries[0].entries[0].etymologies[0];
-      console.log(response.data.results[0].lexicalEntries[0].entries[0].etymologies[0]);
       this.setState({
-        answer: response.data.results[0].lexicalEntries[0].entries[0].etymologies[0]
-      })
-      return response.data.results[0].lexicalEntries[0].entries[0].etymologies[0];
+        answer: answer
+      });
+      return answer;
     }).catch((error) => {
-      console.error(error);
+      // console.error(error);
+      this.setState({
+        answer: 'oops... something went wrong :('
+      });
+      return this.state.answer;
     });
   };//end of function onButtonPress
-
-  static navigationOptions = {
-    title: 'Etymology Whiz',
-    headerStyle: { backgroundColor: 'lavender' },
-    headerTitleStyle: { color: 'rgb(119, 96, 141)', fontSize: 24 },
-  };
 
   render() {
 
@@ -80,12 +85,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     fontWeight: '900',
-    fontSize: 16,
+    fontSize: 20,
     marginBottom: 24,
   },
   input: {
     borderColor: 'white',
     borderWidth: 2,
+    fontSize: 24,
     width: '75%',
     color: 'white'
   },
