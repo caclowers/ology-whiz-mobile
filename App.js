@@ -1,4 +1,5 @@
 import React from 'react';
+const unirest = require('unirest');
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, TouchableNativeFeedback, Platform, StatusBar, ScrollView, Image, ImageBackground } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Button from './src/components/Button.js';
